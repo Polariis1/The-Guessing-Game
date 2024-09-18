@@ -1,0 +1,11 @@
+/* styles.css */
+.backgroundImage {
+    -fx-background-image: url("images/image.png");
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+}
+
+.button{
+    -fx-background-color: #2d5e93;
+}
