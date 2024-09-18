@@ -20,7 +20,7 @@ public class Controller {
     private Parent root;
 
     private ComboBox<String> difficultyComboBox;
-    //pub
+    //public void comboValues()
 
     private Spinner<Integer> difficultySpinner;
     public void spinnerValues() {
