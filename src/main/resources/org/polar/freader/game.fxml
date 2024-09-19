@@ -21,5 +21,6 @@
       </Label>
       <Button layoutX="341.0" layoutY="269.0" mnemonicParsing="false" onAction="#gameDifficulty" prefHeight="40.0" prefWidth="109.0" text="Button" />
       <ComboBox id="difficultyComboBox" layoutX="155.0" layoutY="276.0" prefWidth="150.0" promptText="difficulty" />
+      <Button layoutX="329.0" layoutY="421.0" mnemonicParsing="false" onAction="#generateDatabase" prefHeight="40.0" prefWidth="98.0" text="Button" />
    </children>
 </AnchorPane>

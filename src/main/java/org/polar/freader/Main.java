@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -17,11 +18,18 @@ public class Main extends Application {
         stage.setTitle("Highscore!");
         stage.setScene(scene);
         stage.show();
-    }
-
-    public void generateNumbers() throws IOException {
 
     }
+
+    public void generateNumbers() throws IOException {}
+
+    /*
+    File databaseGeneration = new File("File");
+
+    while(databaseGeneration.createfile() =!){
+        int fileNumber=+1;
+        File databaseGeneration = new File("File"+ String.valueOf(fileNumber));
+    }*/
 
     public static void main(String[] args) {
         launch();
