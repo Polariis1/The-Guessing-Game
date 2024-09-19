@@ -1,11 +1,13 @@
 package org.polar.freader;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
+import java.nio.file.*;
 import javafx.scene.control.ComboBox;
 
 import java.io.File;
@@ -22,12 +24,10 @@ public class Controller {
     private Parent root;
 
     private ComboBox<String> difficultyComboBox;
-    //public void comboValues() {}
-
-    private Spinner<Integer> difficultySpinner;
-    public void spinnerValues() {
-        SpinnerValueFactory<Integer> values = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, 1);
-        difficultySpinner.setValueFactory(values);
+    public void comboValues() {
+        String[] difficulty = {"Easy", "Medium", "Hard"};
+        difficultyComboBox.setItems(FXCollections.observableArrayList(difficulty));
+        difficultyComboBox.setValue("Medium");
     }
 
     public void gameToMenu(javafx.event.ActionEvent event) throws IOException {
@@ -39,7 +39,6 @@ public class Controller {
         System.out.println("Exit to menu.");
     }
 
-
     public void MenuToGame(javafx.event.ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("game.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -47,38 +46,32 @@ public class Controller {
         stage.setScene(scene);
         stage.show();
         System.out.println("switch to game scene.");
+        //make popup menu to either choose old save or make new. boolean true or false then send to generatedatabase.
     }
     public void gameDifficulty(javafx.event.ActionEvent event) {
-        try {
-            Integer difficulty = difficultySpinner.getValue();
-            System.out.println("Spinner Value: " + difficulty);
-        }catch (Exception e){System.out.println("Error! " + e.getMessage());}
+        String difficulty = difficultyComboBox.getValue();
+        System.out.println("Difficulty: " + difficulty);
     }
     public void generateDatabase(javafx.event.ActionEvent event) throws IOException {
         System.out.println("generateDatabases ran");
 
-
         String userHome = System.getProperty("user.home");
-        System.out.print(userHome);
+        Path directoryPath = Paths.get(userHome, "AppData","Roaming", ".highscore", "saves2");
 
-        //if (userHome+"/AppData/Roaming/highscore3/"){
-            //check if directory exists if not make one!
-        //s}
-        File dir = new File(userHome+ "/AppData/Roaming/highscore3/");
-        new File(String.valueOf(dir)).mkdirs();
-
-        boolean dirCreated = dir.mkdirs();
-        if (!dirCreated) {
-            System.out.println("Directory creation failed: " + dir.getPath());
+        if (Files.notExists(directoryPath)) {
+            new File(String.valueOf(directoryPath)).mkdirs();
+        }else{
+            System.out.println("\n"+"Directory already exists at: "+directoryPath);
         }
 
-        File databaseGeneration = new File(dir+"/text2.txt");
+        String saveFile = "save"+3;
+        File databaseGeneration = new File(directoryPath+"/"+saveFile+".txt");
         boolean isFileCreated = databaseGeneration.createNewFile();
 
         if (isFileCreated){
-            System.out.println("\n"+"File was successfully created at: "+dir);
+            System.out.println("\n"+"File was successfully created at: "+directoryPath);
         }else {
-            System.out.println("\n"+"File was NOT created"+ "dir: "+dir);
+            System.out.println("\n"+"File was already exists at: "+directoryPath);
         }
 
         }/*
