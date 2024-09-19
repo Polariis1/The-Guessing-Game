@@ -9,25 +9,11 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="root" prefHeight="740.0" prefWidth="1260.0" styleClass="backgroundImage" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.coroom/fxml/1" fx:controller="org.polar.freader.Controller">
+<AnchorPane id="root" prefHeight="740.0" prefWidth="1260.0" styleClass="backgroundImage" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.polar.freader.Controller">
    <children>
       <StackPane layoutX="-2.0" layoutY="147.0" prefHeight="518.0" prefWidth="1260.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <Button id="button" mnemonicParsing="false" prefHeight="67.0" prefWidth="350.0" stylesheets="@styles.css" text="CONTINUE" StackPane.alignment="TOP_CENTER">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <StackPane.margin>
-                  <Insets />
-               </StackPane.margin>
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Button>
-            <Button id="button" mnemonicParsing="false" onAction="#MenuToGame" prefHeight="67.0" prefWidth="350.0" stylesheets="@styles.css" text="NEW GAME" StackPane.alignment="TOP_CENTER">
+            <Button id="button" mnemonicParsing="false" onAction="#MenuToGame" prefHeight="67.0" prefWidth="350.0" stylesheets="@styles.css" text="PLAY" StackPane.alignment="TOP_CENTER">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -41,7 +27,7 @@
                   <Font size="17.0" />
                </font>
             </Button>
-            <Button id="button" mnemonicParsing="false" prefHeight="67.0" prefWidth="350.0" stylesheets="@styles.css" text="SAVE GAME" StackPane.alignment="TOP_CENTER">
+            <Button id="button" mnemonicParsing="false" prefHeight="67.0" prefWidth="350.0" stylesheets="@styles.css" text="LEADERBOARD" StackPane.alignment="TOP_CENTER">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -55,7 +41,7 @@
                   <Font size="17.0" />
                </font>
             </Button>
-            <Button id="button" mnemonicParsing="false" prefHeight="67.0" prefWidth="350.0" stylesheets="@styles.css" text="SETTINGS" StackPane.alignment="TOP_CENTER">
+            <Button id="button" mnemonicParsing="false" prefHeight="67.0" prefWidth="350.0" stylesheets="@styles.css" text="OPTIONS" StackPane.alignment="TOP_CENTER">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -83,7 +69,7 @@
                   <Font size="17.0" />
                </font>
             </Button>
-            <Button id="button" mnemonicParsing="false" prefHeight="67.0" prefWidth="350.0" stylesheets="@styles.css" text="EXIT GAME" StackPane.alignment="TOP_CENTER">
+            <Button id="button" mnemonicParsing="false" onAction="#exitProgram" prefHeight="67.0" prefWidth="350.0" stylesheets="@styles.css" text="EXIT GAME" StackPane.alignment="TOP_CENTER">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>

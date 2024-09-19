@@ -5,22 +5,43 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="root" prefHeight="740.0" prefWidth="1260.0" styleClass="backgroundImage" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.polar.freader.Controller">
    <children>
-      <Button layoutX="654.0" layoutY="557.0" mnemonicParsing="false" onAction="#gameToMenu" prefHeight="46.0" prefWidth="150.0" styleClass="button" stylesheets="@styles.css" text="MENU">
+      <Button mnemonicParsing="false" onAction="#generateDatabase" prefHeight="40.0" prefWidth="98.0" text="GO" />
+      <Button mnemonicParsing="false" onAction="#gameToMenu" prefHeight="46.0" prefWidth="150.0" styleClass="button" stylesheets="@styles.css" text="MENU">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
+      <Button mnemonicParsing="false" onAction="#gameDifficulty" prefHeight="40.0" prefWidth="98.0" text="Difficulty" />
       <Label layoutX="935.0" layoutY="109.0" text="Label">
          <font>
             <Font size="37.0" />
          </font>
       </Label>
-      <Button layoutX="341.0" layoutY="269.0" mnemonicParsing="false" onAction="#gameDifficulty" prefHeight="40.0" prefWidth="109.0" text="Button" />
-      <ComboBox id="difficultyComboBox" layoutX="155.0" layoutY="276.0" onAction="#comboValues" prefWidth="150.0" />
-      <Button layoutX="329.0" layoutY="421.0" mnemonicParsing="false" onAction="#generateDatabase" prefHeight="40.0" prefWidth="98.0" text="Button" />
+      <ComboBox fx:id="difficultyComboBox" layoutX="155.0" layoutY="276.0" onAction="#comboValues" prefWidth="150.0" />
+      <Pane fx:id="selectionBackground" prefHeight="740.0" prefWidth="1260.0" style="-fx-background-color: BLACK;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <GridPane layoutX="411.0" layoutY="339.0" prefHeight="125.0" prefWidth="439.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="75.0" prefWidth="240.0" text="Continue" />
+                  <Button mnemonicParsing="false" onAction="#LoadNewGame" prefHeight="75.0" prefWidth="220.0" text="New Game" GridPane.columnIndex="1" />
+               </children>
+            </GridPane>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>
