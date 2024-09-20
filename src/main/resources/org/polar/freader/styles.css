@@ -9,3 +9,8 @@
 .button{
     -fx-background-color: #2d5e93;
 }
+.hide{
+    -fx-background-color: #000000;
+    -fx-opacity: 0;
+    /*-fx-text-fill: transparent;*/
+}

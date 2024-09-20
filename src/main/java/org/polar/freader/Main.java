@@ -13,14 +13,18 @@ import java.util.Objects;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("start.fxml")));
+        FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("start.fxml")));
+        Parent root = loader.load();
+
+        // import controller
+        Controller controller = loader.getController();
+
         Scene scene = new Scene(root);
         stage.setTitle("Highscore!");
         stage.setScene(scene);
+        stage.setFullScreen(true);
         stage.show();
-
     }
-
     public void generateNumbers() throws IOException {}
 
     /*

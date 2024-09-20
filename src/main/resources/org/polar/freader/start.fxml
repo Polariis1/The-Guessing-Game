@@ -13,7 +13,7 @@
    <children>
       <StackPane layoutX="-2.0" layoutY="147.0" prefHeight="518.0" prefWidth="1260.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <Button id="button" mnemonicParsing="false" onAction="#MenuToGame" prefHeight="67.0" prefWidth="350.0" stylesheets="@styles.css" text="PLAY" StackPane.alignment="TOP_CENTER">
+            <Button id="button" mnemonicParsing="false" onAction="#menuToGame" prefHeight="67.0" prefWidth="350.0" stylesheets="@styles.css" text="PLAY" StackPane.alignment="TOP_CENTER">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -41,7 +41,7 @@
                   <Font size="17.0" />
                </font>
             </Button>
-            <Button id="button" mnemonicParsing="false" prefHeight="67.0" prefWidth="350.0" stylesheets="@styles.css" text="OPTIONS" StackPane.alignment="TOP_CENTER">
+            <Button id="button" mnemonicParsing="false" onAction="#menuToOptions" prefHeight="67.0" prefWidth="350.0" stylesheets="@styles.css" text="OPTIONS" StackPane.alignment="TOP_CENTER">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
