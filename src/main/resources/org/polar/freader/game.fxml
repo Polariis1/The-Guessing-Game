@@ -14,18 +14,18 @@
 <AnchorPane id="root" prefHeight="740.0" prefWidth="1260.0" styleClass="backgroundImage" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.polar.freader.Controller">
    <children>
       <Button mnemonicParsing="false" onAction="#generateDatabase" prefHeight="40.0" prefWidth="98.0" text="GO" />
-      <Button mnemonicParsing="false" onAction="#gameToMenu" prefHeight="46.0" prefWidth="150.0" styleClass="button" stylesheets="@styles.css" text="MENU">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
-      <Button mnemonicParsing="false" onAction="#gameDifficulty" prefHeight="40.0" prefWidth="98.0" text="Difficulty" />
+      <Button layoutX="315.0" layoutY="269.0" mnemonicParsing="false" onAction="#gameDifficulty" prefHeight="40.0" prefWidth="98.0" text="Difficulty" />
       <Label layoutX="935.0" layoutY="109.0" text="Label">
          <font>
             <Font size="37.0" />
          </font>
       </Label>
       <ComboBox fx:id="difficultyComboBox" layoutX="155.0" layoutY="276.0" onAction="#comboValues" prefWidth="150.0" />
+      <Button mnemonicParsing="false" onAction="#gameToMenu" prefHeight="54.0" prefWidth="166.0" styleClass="button" stylesheets="@styles.css" text="MENU">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
       <Pane fx:id="selectionBackground" prefHeight="740.0" prefWidth="1260.0" style="-fx-background-color: BLACK;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <GridPane layoutX="411.0" layoutY="339.0" prefHeight="125.0" prefWidth="439.0">

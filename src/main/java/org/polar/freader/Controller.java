@@ -50,6 +50,7 @@ public class Controller {
     private Pane selectionBackground;
     public void LoadNewGame(javafx.event.ActionEvent event) throws IOException {
         selectionBackground.setVisible(false);
+        generateDatabase();
     }
 
     @FXML
@@ -64,7 +65,8 @@ public class Controller {
         String difficulty = difficultyComboBox.getValue();
         System.out.println("Difficulty: " + difficulty);
     }
-    public void generateDatabase(javafx.event.ActionEvent event) throws IOException {
+    public void generateDatabase() throws IOException {
+        //maybe add it to Main.java and link to difficultycombobox button?
         System.out.println("generateDatabases ran");
 
         String userHome = System.getProperty("user.home");
@@ -76,7 +78,10 @@ public class Controller {
             System.out.println("\n"+"Directory already exists at: "+directoryPath);
         }
 
-        String saveFile = "save"+3;
+        int fileNum = 11;
+        String saveFile = "save"+fileNum;
+        Path filePath = Path.of(directoryPath + "/" + saveFile + ".txt");
+
         File databaseGeneration = new File(directoryPath+"/"+saveFile+".txt");
         boolean isFileCreated = databaseGeneration.createNewFile();
 
