@@ -167,15 +167,4 @@ public class Controller {
         return null;
     }
 
-        }/*
-        String fileName = "text.txt";
-        String directoryPath = "C:\\Program Files\\highscore\\databases\\";
-
-        File databaseGeneration = new File(directoryPath + fileName);
-        while(!databaseGeneration.createNewFile()){
-            int fileNumber=+1;
-            databaseGeneration = new File("file"+ String.valueOf(fileNumber)+".txt");
-            System.out.println("made new file at: " + databaseGeneration.getAbsolutePath());
-        }*/
-        //while()
-
+}
