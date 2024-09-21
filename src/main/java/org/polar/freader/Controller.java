@@ -6,9 +6,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
@@ -30,7 +32,7 @@ public class Controller {
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-        stage.setFullScreen(true);
+        stage.setResizable(false);
         stage.show();
         System.out.println("Switch to Game");
     }
@@ -40,7 +42,7 @@ public class Controller {
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-        stage.setFullScreen(true);
+        stage.setResizable(false);
         stage.show();
 
         cleanFiles(); //deletes empty save file
@@ -52,7 +54,7 @@ public class Controller {
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-        stage.setFullScreen(true);
+        stage.setResizable(false);
         stage.show();
         System.out.println("Enter Options");
 
@@ -77,10 +79,22 @@ public class Controller {
     //Live in menu related above
     //Live in game related below
 
+    private Path directoryPath;
+
     @FXML
     public void initialize() {
         // populating the combobox with the difficulty values when fxml starts
         comboValues();
+
+        //generate directory for save files
+        String userHome = System.getProperty("user.home");
+        directoryPath = Paths.get(userHome, "AppData", "Roaming", ".highscore", "saves2");
+
+        if (Files.notExists(directoryPath)) {
+            new File(String.valueOf(directoryPath)).mkdirs();
+        }else{
+            System.out.println("\n"+"Directory already exists at: "+ directoryPath);
+        }
     }
 
     @FXML
@@ -88,8 +102,38 @@ public class Controller {
 
     public void LoadNewGame(javafx.event.ActionEvent event) throws IOException {
         selectionBackground.setVisible(false);
+        selectOldSaveBackground.setVisible(false);
         generateDatabase();
     }
+    @FXML
+    private Pane selectOldSaveBackground;
+
+    public void LoadOldGame(javafx.event.ActionEvent event) throws IOException {
+        selectionBackground.setVisible(false);
+        savesList();
+    }
+    public void goBackToSelection(javafx.event.ActionEvent event) throws IOException {
+        selectionBackground.setVisible(true);
+    }
+
+    @FXML
+    private VBox savesVBox;
+    public void savesList() throws IOException {
+
+        File[] saveFileList = directoryPath.toFile().listFiles();
+        if(saveFileList != null) {
+            for (File saveFile : saveFileList) {
+                //add buttons
+                Button saves = new Button(saveFile.getName());
+                saves.setPrefHeight(50);
+                saves.setPrefWidth(400);
+                saves.setText(saveFile.getName());
+                savesVBox.getChildren().add(saves);
+            }
+        }else
+            System.out.println("No save files found");
+    }
+
 
     // Method to populate ComboBox after the scene is set up
     @FXML
@@ -100,7 +144,6 @@ public class Controller {
         if (difficultyComboBox != null) {
             String[] difficulty = {"Easy", "Medium", "Hard"};
             difficultyComboBox.setItems(FXCollections.observableArrayList(difficulty));
-            difficultyComboBox.setValue("Medium");  // Set default value
         }
     }
     public void gameDifficulty(javafx.event.ActionEvent event) {
@@ -109,21 +152,13 @@ public class Controller {
         }
 
     private Path filePath;
+    private String saveFile;
 
     public void generateDatabase() throws IOException {
         //make it so if its empty and u return to the menu it gets removed.
         System.out.println("generateDatabases ran");
 
-        String userHome = System.getProperty("user.home");
-        Path directoryPath = Paths.get(userHome, "AppData", "Roaming", ".highscore", "saves2");
-
-        if (Files.notExists(directoryPath)) {
-            new File(String.valueOf(directoryPath)).mkdirs();
-        }else{
-            System.out.println("\n"+"Directory already exists at: "+ directoryPath);
-        }
         int fileNum = 1;
-        String saveFile;
         do { //runs once, before condition is checked at the end.
             saveFile = "save" + fileNum;
             filePath = Path.of(directoryPath + "/" + saveFile + ".txt");
@@ -141,6 +176,7 @@ public class Controller {
             System.out.println("\n"+"File already exists at: "+ directoryPath);
         }
     }
+
     public void writeData() throws IOException {
         String data = "hello world darkness smile friend naurr what no way is that true"+"\n";
         if (filePath != null) {  // Ensure filePath is initialized
