@@ -1,6 +1,10 @@
 package org.polar.freader;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -13,6 +17,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.*;
 import java.nio.file.*;
@@ -25,10 +30,18 @@ public class Controller {
     private Stage stage;
     private Scene scene;
     private Parent root;
+    private Main main;
 
+    public void hidePlayBtn() {
+        unzoomBtn.setDisable(true);
+        unzoomBtn.setVisible(false);
+    }
+    public void setMain(Main main) {
+        this.main = main;
+    }
 
     public void menuToGame(javafx.event.ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("game.fxml")));
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("game.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -38,7 +51,7 @@ public class Controller {
     }
 
     public void gameToMenu(javafx.event.ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("start.fxml")));
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("start.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -46,13 +59,15 @@ public class Controller {
         stage.show();
 
         cleanFiles(); //deletes empty save file
-
         SpawnSplashText(); //spawns splash text
+
+
+
 
         System.out.println("Exit to Menu");
     }
     public void menuToOptions(javafx.event.ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("option.fxml")));
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("option.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -73,6 +88,15 @@ public class Controller {
             System.out.println("File does not exist, not deleting: " + filePath);
         }
     }
+    @FXML
+    private Button unzoomBtn;
+    public void playOutZoom(javafx.event.ActionEvent event) throws IOException {
+        if (main != null) {
+            main.menuOutZoom(event);
+        }
+        hidePlayBtn();
+    }
+
 
     public void exitProgram() {
         System.exit(0);

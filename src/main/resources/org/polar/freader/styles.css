@@ -7,13 +7,8 @@
 .backgroundImage {
     -fx-background-image: url("images/tvbackground.gif");
     -fx-background-size: cover;
-    -fx-background-position: center center;
+    -fx-background-position: center;
     -fx-background-repeat: no-repeat;
-}
-
-.button{
-    -fx-background-color: #c42847;
-    -fx-text-fill: white;
 }
 .menuButton{
     -fx-background-color: #C42847;
@@ -28,6 +23,32 @@
 .menuButton:hover {
     -fx-opacity: 1;
 }
+.unzoomButton{
+    -fx-text-fill: #C42847;
+    -fx-background-color: transparent;
+    -fx-font-size: 0.9em;
+    -fx-opacity: 0.7;
+    -fx-font-family: 'Press Start 2P'; /* You need to use a pixel font */
+    -fx-font-smoothing-type: gray;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.8), 3, 0, 0, 0);
+    -fx-alignment: center;
+}
+.startMenuButton{
+    -fx-text-fill: #C42847;
+    -fx-background-color: transparent;
+    -fx-font-size: 1.5em;
+    -fx-opacity: 0.9;
+    -fx-font-family: 'Press Start 2P'; /* You need to use a pixel font */
+    -fx-font-smoothing-type: gray;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.8), 3, 0, 0, 0);
+    -fx-alignment: CENTER_LEFT;
+}
+.startMenuButton:hover {
+    -fx-opacity: 1;
+    -fx-border-color: #C42847;
+    -fx-border-width: 2;
+}
+
 .hide{
     -fx-background-color: #000000;
     -fx-opacity: 0;
@@ -36,7 +57,7 @@
 .splashText {
     -fx-font-size: 32px;
     -fx-text-fill: #e28413;
-    -fx-font-family: 'Press Start 2P'; /* You need to use a pixel font */
+    -fx-font-family: 'Press Start 2P'; /* pixel font */
     -fx-font-smoothing-type: gray;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.8), 3, 0, 0, 0);
 }
