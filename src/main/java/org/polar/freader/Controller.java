@@ -8,17 +8,17 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.*;
 import java.nio.file.*;
 
-import java.io.File;
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Controller {
@@ -46,6 +46,8 @@ public class Controller {
         stage.show();
 
         cleanFiles(); //deletes empty save file
+
+        SpawnSplashText(); //spawns splash text
 
         System.out.println("Exit to Menu");
     }
@@ -75,6 +77,29 @@ public class Controller {
     public void exitProgram() {
         System.exit(0);
     }
+    @FXML
+    private Label splashText;
+    public void SpawnSplashText() throws IOException{
+
+        InputStream inputStream = getClass().getResourceAsStream("/org/polar/freader/splashTextsList.txt");
+        BufferedReader reader = new BufferedReader(new InputStreamReader(Objects.requireNonNull(inputStream)));
+
+        List<String> lines = new ArrayList<>();
+        String line;
+
+        while ((line = reader.readLine()) != null) {
+            lines.add(line);
+        }reader.close();
+
+        int num = (int) (Math.random()*lines.size());
+        System.out.println(num);
+        String splashTxt = lines.get(num);
+        if (splashText != null) {
+            splashText.setText(splashTxt);
+        }else {
+            System.out.println("No splash text found");
+        }
+    }
 
     //Live in menu related above
     //Live in game related below
@@ -83,8 +108,13 @@ public class Controller {
 
     @FXML
     public void initialize() {
-        // populating the combobox with the difficulty values when fxml starts
+        //populating the combobox with the difficulty values when fxml starts
         comboValues();
+        try {
+            SpawnSplashText();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         //generate directory for save files
         String userHome = System.getProperty("user.home");
