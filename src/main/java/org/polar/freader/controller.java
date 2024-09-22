@@ -1,12 +1,11 @@
 package org.polar.freader;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -14,19 +13,21 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.*;
 import java.nio.file.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class Controller {
+public class controller {
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -61,13 +62,10 @@ public class Controller {
         cleanFiles(); //deletes empty save file
         SpawnSplashText(); //spawns splash text
 
-
-
-
         System.out.println("Exit to Menu");
     }
     public void menuToOptions(javafx.event.ActionEvent event) throws IOException {
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("option.fxml")));
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("options.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -172,24 +170,40 @@ public class Controller {
 
     @FXML
     private VBox savesVBox;
+    private Button saves;
+
     public void savesList() throws IOException {
+        savesVBox.setAlignment(Pos.CENTER);
+        savesVBox.setSpacing(10);
 
         File[] saveFileList = directoryPath.toFile().listFiles();
+        List<String> images = Arrays.asList("btnImage1", "btnImage2", "btnImage3",
+                "btnImage4","btnImage5","btnImage6","btnImage7","btnImage8");
+
         if(saveFileList != null) {
-            for (File saveFile : saveFileList) {
+            for (File save : saveFileList) {
                 //add buttons
-                Button saves = new Button(saveFile.getName());
+                saves = new Button(save.getName());
+                saves.getStyleClass().addAll("savesButton");
+
+                int random = (int) (Math.random()* images.size());
+                String backgroundImg = images.get(random);
+                saves.getStyleClass().add(backgroundImg);
+
                 saves.setPrefHeight(50);
-                saves.setPrefWidth(400);
-                saves.setText(saveFile.getName());
+                saves.setPrefWidth(550);
+                saves.setText(save.getName());
+                saves.setOnAction(e -> {
+                    selectOldSaveBackground.setVisible(false);
+                    filePath = Path.of(directoryPath +"/"+ save.getName());
+                });
+
                 savesVBox.getChildren().add(saves);
             }
         }else
             System.out.println("No save files found");
     }
 
-
-    // Method to populate ComboBox after the scene is set up
     @FXML
     private ComboBox<String> difficultyComboBox;
 

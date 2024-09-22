@@ -11,13 +11,12 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
 public class Main extends Application {
     private Parent root;
-    private Controller controller;
+    private org.polar.freader.controller controller;
     private final int startOffSetX = -10;
     private final int startOffSetY = 100;
     private final double startZoomScale = 2;
@@ -35,7 +34,6 @@ public class Main extends Application {
         root.setTranslateY(startOffSetY);
         root.setScaleX(startZoomScale); //start with 000% zoom
         root.setScaleY(startZoomScale);
-
 
         Scene scene = new Scene(root, 1280, 720);
         stage.setTitle("Highscore!");
@@ -72,17 +70,11 @@ public class Main extends Application {
 
         zoomOutTimeline.play();
     }
-    public Controller getController() {
+    public org.polar.freader.controller getController() {
         return controller; // Provide access to the controller
     }
+    //game logic
 
-    /*
-    File databaseGeneration = new File("File");
-
-    while(databaseGeneration.createfile() =!){
-        int fileNumber=+1;
-        File databaseGeneration = new File("File"+ String.valueOf(fileNumber));
-    }*/
 
     public static void main(String[] args) {
         launch();
