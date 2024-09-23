@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -25,6 +26,7 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("start.fxml")));
         root = loader.load();
+        stage.getIcons().add(new Image("https://cdn.discordapp.com/attachments/673164580075077632/1287723173353099375/Designer_1.png?ex=66f29529&is=66f143a9&hm=64d1f93d71a92f9d40870ed095c6d8273944a9e78b01df7fc0a73e9f6af471ef&"));
 
         // import controller
         controller = loader.getController(); //initialize controller
@@ -72,7 +74,7 @@ public class Main extends Application {
         zoomOutTimeline.play();
     }
     public org.polar.freader.controller getController() {
-        return controller; // Provide access to the controller
+        return controller; //provide access to the controller
     }
     //game logic
 

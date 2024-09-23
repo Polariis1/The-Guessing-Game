@@ -140,7 +140,7 @@ public class controller {
 
         //generate directory for save files
         String userHome = System.getProperty("user.home");
-        directoryPath = Paths.get(userHome, "AppData", "Roaming", ".highscore", "saves2");
+        directoryPath = Paths.get(userHome, "AppData", "Roaming", ".highscore", "saves");
 
         if (Files.notExists(directoryPath)) {
             new File(String.valueOf(directoryPath)).mkdirs();
