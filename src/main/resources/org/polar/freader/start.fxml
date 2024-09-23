@@ -91,6 +91,17 @@
                   <Font size="17.0" />
                </font>
             </Button>
+            <Button id="button" mnemonicParsing="false" onAction="#menuToGame" prefHeight="67.0" prefWidth="250.0" styleClass="startMenuButton" stylesheets="@styles.css" text="PLAY">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Button>
          </children>
       </GridPane>
       <Button id="button" fx:id="unzoomBtn" layoutX="609.0" layoutY="296.0" mnemonicParsing="false" onAction="#playOutZoom" prefHeight="26.0" prefWidth="63.0" styleClass="unzoomButton" stylesheets="@styles.css" text="PLAY">
@@ -102,17 +113,6 @@
          </cursor>
          <font>
             <Font size="6.0" />
-         </font>
-      </Button>
-      <Button id="button" layoutX="498.0" layoutY="337.0" mnemonicParsing="false" onAction="#menuToGame" prefHeight="67.0" prefWidth="250.0" styleClass="startMenuButton" stylesheets="@styles.css" text="PLAY">
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-         <font>
-            <Font size="17.0" />
          </font>
       </Button>
    </children>
