@@ -177,6 +177,7 @@ public class controller {
         savesVBox.setSpacing(10);
 
         File[] saveFileList = directoryPath.toFile().listFiles();
+
         List<String> images = Arrays.asList("btnImage1", "btnImage2", "btnImage3",
                 "btnImage4","btnImage5","btnImage6","btnImage7","btnImage8");
 
@@ -186,6 +187,7 @@ public class controller {
                 saves = new Button(save.getName());
                 saves.getStyleClass().addAll("savesButton");
 
+                //adds random image to button
                 int random = (int) (Math.random()* images.size());
                 String backgroundImg = images.get(random);
                 saves.getStyleClass().add(backgroundImg);

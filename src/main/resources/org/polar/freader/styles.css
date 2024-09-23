@@ -50,6 +50,7 @@
     -fx-opacity: 1;
     -fx-border-color: #C42847;
     -fx-border-width: 2;
+    -fx-text-fill: #FBF5F3;
 }
 .savesButton {
     -fx-background-color: #ffffff;
