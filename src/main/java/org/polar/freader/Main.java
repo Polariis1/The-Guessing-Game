@@ -40,6 +40,7 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.setResizable(false);
         controller.SpawnSplashText();
+        stage.setFullScreen(true);
 
         stage.show();
     }

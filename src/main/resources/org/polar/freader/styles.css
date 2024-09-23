@@ -41,7 +41,7 @@
     -fx-background-color: transparent;
     -fx-font-size: 1.5em;
     -fx-opacity: 0.9;
-    -fx-font-family: 'Press Start 2P'; /* You need to use a pixel font */
+    -fx-font-family: 'Press Start 2P'; /* pixel font */
     -fx-font-smoothing-type: gray;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.8), 3, 0, 0, 0);
     -fx-alignment: CENTER_LEFT;
