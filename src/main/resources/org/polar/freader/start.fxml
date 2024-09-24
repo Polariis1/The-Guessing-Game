@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="root" prefHeight="720.0" prefWidth="1280.0" styleClass="backgroundImage" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.polar.freader.controller">
+<AnchorPane id="root" prefHeight="720.0" prefWidth="1280.0" styleClass="backgroundImage" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.polar.freader.startController">
    <children>
       <Label fx:id="splashText" alignment="CENTER" contentDisplay="CENTER" layoutX="83.0" layoutY="642.0" maxWidth="1.7976931348623157E308" prefHeight="67.0" prefWidth="1177.0" styleClass="splashText" text="(splash text)" textAlignment="CENTER" textFill="WHITE">
          <font>

@@ -24,7 +24,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class controller {
+public class gameController {
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -39,22 +39,6 @@ public class controller {
         this.logic = logic;
     }
 
-    public void hidePlayBtn() {
-        unzoomBtn.setDisable(true);
-        unzoomBtn.setVisible(false);
-    }
-
-    public void menuToGame(javafx.event.ActionEvent event) throws IOException {
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("game.fxml")));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
-
-        System.out.println("Switch to Game");
-    }
-
     public void gameToMenu(javafx.event.ActionEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("start.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -64,19 +48,8 @@ public class controller {
         stage.show();
 
         cleanFiles(); //deletes empty save file
-        SpawnSplashText(); //spawns splash text
 
         System.out.println("Exit to Menu");
-    }
-    public void menuToOptions(javafx.event.ActionEvent event) throws IOException {
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("options.fxml")));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
-        System.out.println("Enter Options");
-
     }
 
     public void cleanFiles() throws IOException {
@@ -90,57 +63,15 @@ public class controller {
             System.out.println("File does not exist, not deleting: " + filePath);
         }
     }
-    @FXML
-    private Button unzoomBtn;
-    public void playOutZoom(javafx.event.ActionEvent event) throws IOException {
-        if (main != null) {
-            main.menuOutZoom(event);
-        }
-        hidePlayBtn();
-    }
-
-
-    public void exitProgram() {
-        System.exit(0);
-    }
-    @FXML
-    private Label splashText;
-    public void SpawnSplashText() throws IOException{
-
-        InputStream inputStream = getClass().getResourceAsStream("/org/polar/freader/splashTextsList.txt");
-        BufferedReader reader = new BufferedReader(new InputStreamReader(Objects.requireNonNull(inputStream)));
-
-        List<String> lines = new ArrayList<>();
-        String line;
-
-        while ((line = reader.readLine()) != null) {
-            lines.add(line);
-        }reader.close();
-
-        int num = (int) (Math.random()*lines.size());
-        System.out.println(num);
-        String splashTxt = lines.get(num);
-        if (splashText != null) {
-            splashText.setText(splashTxt);
-        }else {
-            System.out.println("No splash text found");
-        }
-    }
-
-    //Live in menu related above
-    //Live in game related below
 
     private Path directoryPath;
 
     @FXML
     public void initialize() {
-        //populating the combobox with the difficulty values when fxml starts
-        comboValues();
-        try {
-            SpawnSplashText();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+
+        fillComboBox();//SOLVED IT!! IT SAYS NULL BECAUSE INITIALIZE() STARTS WITH THE START SCENE
+        // NOT THE GAME SCENE! make new controller for specific scene
+
         //generate directory for save files
         String userHome = System.getProperty("user.home");
         directoryPath = Paths.get(userHome, "AppData", "Roaming", ".highscore", "saves");
@@ -150,6 +81,13 @@ public class controller {
         }else{
             System.out.println("\n"+"Directory already exists at: "+ directoryPath);
         }
+    }
+    @FXML
+    public ComboBox<String> difficultyComboBox;
+
+    public void fillComboBox(){
+        String[] difficulty = {"Easy", "Medium", "Hard"};
+        difficultyComboBox.setItems(FXCollections.observableArrayList(difficulty));
     }
 
     @FXML
@@ -210,23 +148,25 @@ public class controller {
     }
 
     @FXML
-    private ComboBox<String> difficultyComboBox;
-
-    @FXML
-    public String comboValues() {
+    public void comboValues() {
         if (difficultyComboBox != null) {
-            String[] difficulty = {"Easy", "Medium", "Hard"};
-            difficultyComboBox.setItems(FXCollections.observableArrayList(difficulty));
-            difficultyComboBox.setValue("Easy");
-            return difficultyComboBox.getValue();
-        }
-        return null;
-    }
-    public void guess(ActionEvent event) throws IOException {
-        if(logic != null){
-        logic.numberGeneration();
+            String value = difficultyComboBox.getValue();
+            System.out.println("value: " + value);
+
+            if (logic != null) {
+                logic.numberGeneration(value);
+            }else {
+                System.err.println("Logic is null");
+            }
         }else{
-            System.err.println("comboValues = null");
+            System.out.println("No difficulty selected");
+        }
+    }
+    public void guess(ActionEvent event) throws NoSuchMethodException {
+        if(logic != null){
+            comboValues();
+        }else{
+            System.err.println("logic is null");
         }
     }
 

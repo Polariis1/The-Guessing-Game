@@ -16,3 +16,58 @@ guess the world record(e.g., "How many hot dogs were eaten in the world record c
 challanges to earn points
 shop to spend points
 buy new gamemodes with points
+
+
+
+        // import controller
+        startController = loader.getController(); //initialize controller
+        startController.setMain(this); //set main application reference
+
+        root.setTranslateX(startOffSetX);
+        root.setTranslateY(startOffSetY);
+        root.setScaleX(startZoomScale); //start with 000% zoom
+        root.setScaleY(startZoomScale);
+
+        Scene scene = new Scene(root, 1280, 720);
+        stage.setTitle("Highscore!");
+        stage.setScene(scene);
+        stage.setResizable(false);
+
+        stage.show();
+    }
+}
+    public void menuOutZoom(ActionEvent actionEvent) {
+        // Reset initial translation and scale
+        root.setTranslateX(startOffSetX);
+        root.setTranslateY(startOffSetY);
+
+        root.setScaleX(startZoomScale);
+        root.setScaleY(startZoomScale);
+
+        // Create a timeline to animate the zoom out effect
+        Timeline zoomOutTimeline = new Timeline();
+
+        // Define the keyframes for scaling
+        KeyValue scaleXValue = new KeyValue(root.scaleXProperty(), 1.0);
+        KeyValue scaleYValue = new KeyValue(root.scaleYProperty(), 1.0);
+
+        // Define translations to bring it to the center
+        KeyValue translateXValue = new KeyValue(root.translateXProperty(), 0);
+        KeyValue translateYValue = new KeyValue(root.translateYProperty(), 0);
+
+        // Create a keyframe with the desired duration
+        KeyFrame keyFrame = new KeyFrame(Duration.seconds(3), scaleXValue, scaleYValue, translateXValue, translateYValue);
+
+        // Add the keyframe to the timeline
+        zoomOutTimeline.getKeyFrames().add(keyFrame);
+
+        zoomOutTimeline.play();
+    }
+    public startController getController() {
+        return startController; //provide access to the controller
+    }
+
+
+    public static void main(String[] args) {
+        launch();
+    }
