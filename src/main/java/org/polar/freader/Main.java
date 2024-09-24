@@ -18,6 +18,7 @@ import java.util.Objects;
 public class Main extends Application {
     private Parent root;
     private org.polar.freader.controller controller;
+    private org.polar.freader.controller ogic;
     private final int startOffSetX = -10;
     private final int startOffSetY = 100;
     private final double startZoomScale = 2;

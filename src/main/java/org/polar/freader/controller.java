@@ -29,21 +29,19 @@ public class controller {
     private Scene scene;
     private Parent root;
     private Main main;
-    private org.polar.freader.logic logic;
+    private logic logic;
 
-    public void hidePlayBtn() {
-        unzoomBtn.setDisable(true);
-        unzoomBtn.setVisible(false);
-    }
     public void setMain(Main main) {
         this.main = main;
     }
 
-    public controller() {
-        this.logic = new logic();
+    public void setLogic(logic logic) {
+        this.logic = logic;
     }
-    public org.polar.freader.logic getLogic() {
-        return logic;
+
+    public void hidePlayBtn() {
+        unzoomBtn.setDisable(true);
+        unzoomBtn.setVisible(false);
     }
 
     public void menuToGame(javafx.event.ActionEvent event) throws IOException {
@@ -215,17 +213,21 @@ public class controller {
     private ComboBox<String> difficultyComboBox;
 
     @FXML
-    public void comboValues() {
+    public String comboValues() {
         if (difficultyComboBox != null) {
             String[] difficulty = {"Easy", "Medium", "Hard"};
             difficultyComboBox.setItems(FXCollections.observableArrayList(difficulty));
+            difficultyComboBox.setValue("Easy");
+            return difficultyComboBox.getValue();
         }
+        return null;
     }
-    public String gameDifficulty() {
-        return difficultyComboBox.getValue();
-        }
     public void guess(ActionEvent event) throws IOException {
-        getLogic().numberGeneration();
+        if(logic != null){
+        logic.numberGeneration();
+        }else{
+            System.err.println("comboValues = null");
+        }
     }
 
     private Path filePath;
