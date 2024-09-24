@@ -14,7 +14,7 @@
    <children>
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button layoutX="401.0" layoutY="443.0" mnemonicParsing="false" onAction="#gameDifficulty" prefHeight="40.0" prefWidth="98.0" text="Difficulty" />
+            <Button layoutX="401.0" layoutY="443.0" mnemonicParsing="false" onAction="#guess" prefHeight="40.0" prefWidth="98.0" text="Difficulty" />
             <ComboBox fx:id="difficultyComboBox" editable="true" layoutX="375.0" layoutY="410.0" onAction="#comboValues" prefHeight="26.0" prefWidth="147.0" />
             <Button layoutX="1073.0" layoutY="664.0" mnemonicParsing="false" onAction="#gameToMenu" prefHeight="54.0" prefWidth="166.0" styleClass="button" stylesheets="@styles.css" text="MENU">
                <cursor>

@@ -2,7 +2,6 @@ package org.polar.freader;
 
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -13,8 +12,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -32,6 +29,7 @@ public class controller {
     private Scene scene;
     private Parent root;
     private Main main;
+    private org.polar.freader.logic logic;
 
     public void hidePlayBtn() {
         unzoomBtn.setDisable(true);
@@ -41,6 +39,13 @@ public class controller {
         this.main = main;
     }
 
+    public controller() {
+        this.logic = new logic();
+    }
+    public org.polar.freader.logic getLogic() {
+        return logic;
+    }
+
     public void menuToGame(javafx.event.ActionEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("game.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -48,6 +53,7 @@ public class controller {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
+
         System.out.println("Switch to Game");
     }
 
@@ -137,7 +143,6 @@ public class controller {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
         //generate directory for save files
         String userHome = System.getProperty("user.home");
         directoryPath = Paths.get(userHome, "AppData", "Roaming", ".highscore", "saves");
@@ -210,16 +215,18 @@ public class controller {
     private ComboBox<String> difficultyComboBox;
 
     @FXML
-    private void comboValues() {
+    public void comboValues() {
         if (difficultyComboBox != null) {
             String[] difficulty = {"Easy", "Medium", "Hard"};
             difficultyComboBox.setItems(FXCollections.observableArrayList(difficulty));
         }
     }
-    public void gameDifficulty(javafx.event.ActionEvent event) {
-            String difficulty = difficultyComboBox.getValue();
-            System.out.println("Difficulty: " + difficulty);
+    public String gameDifficulty() {
+        return difficultyComboBox.getValue();
         }
+    public void guess(ActionEvent event) throws IOException {
+        getLogic().numberGeneration();
+    }
 
     private Path filePath;
     private String saveFile;

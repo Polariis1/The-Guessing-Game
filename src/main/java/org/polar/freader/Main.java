@@ -42,7 +42,6 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.setResizable(false);
         controller.SpawnSplashText();
-        stage.setFullScreen(true);
 
         stage.show();
     }
@@ -76,7 +75,6 @@ public class Main extends Application {
     public org.polar.freader.controller getController() {
         return controller; //provide access to the controller
     }
-    //game logic
 
 
     public static void main(String[] args) {
