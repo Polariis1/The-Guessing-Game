@@ -29,15 +29,24 @@ public class logic {
             System.out.println("ddddifficulty = null");
         }
     }
+    public int guessAmount;
+
     public void numberGuessing(Integer num) {
         System.out.println(num);
         if (num == guessingNum) {
             System.out.println("Guess Correct");
-            this.controller.comboValues();
+            controller.comboValues();
+            controller.StatusLabel("Guess Correct!");
+            System.out.println("Amount of guesses "+ guessAmount);
+            guessAmount = 1;
         }else if (num >= guessingNum) {
             System.out.println("Lower");
+            controller.StatusLabel("Lower");
+            guessAmount++;
         }else {
             System.out.println("Higher");
+            controller.StatusLabel("Higher");
+            guessAmount++;
         }
     }
 }

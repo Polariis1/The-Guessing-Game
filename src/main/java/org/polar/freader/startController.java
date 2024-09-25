@@ -1,5 +1,6 @@
 package org.polar.freader;
 
+import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -59,62 +60,58 @@ public class startController {
             System.out.println("\n"+"Directory already exists at: "+ directoryPath);
         }
     }
+    private Timeline zoomInTimeline;
 
-    public void menuOutZoom() {
-        // Reset initial translation and scale
-        root.setTranslateX(startOffSetX);
-        root.setTranslateY(startOffSetY);
+    public void menuToSceneTransition() {
+        //start with normal scale
+        root.setScaleX(1.0); // Normal size
+        root.setScaleY(1.0); // Normal size
 
-        root.setScaleX(startZoomScale);
-        root.setScaleY(startZoomScale);
+        //centering
+        root.setTranslateX(0);
+        root.setTranslateY(0);
 
-        // Create a timeline to animate the zoom out effect
-        Timeline zoomOutTimeline = new Timeline();
 
-        // Define the keyframes for scaling
-        KeyValue scaleXValue = new KeyValue(root.scaleXProperty(), 1.0);
-        KeyValue scaleYValue = new KeyValue(root.scaleYProperty(), 1.0);
+        zoomInTimeline = new Timeline();
 
-        // Define translations to bring it to the center
-        KeyValue translateXValue = new KeyValue(root.translateXProperty(), 0);
-        KeyValue translateYValue = new KeyValue(root.translateYProperty(), 0);
+        //zoom in
+        KeyValue scaleXValue = new KeyValue(root.scaleXProperty(), 10.0, Interpolator.EASE_BOTH);
+        KeyValue scaleYValue = new KeyValue(root.scaleYProperty(), 10.0, Interpolator.EASE_BOTH);
 
-        // Create a keyframe with the desired duration
-        KeyFrame keyFrame = new KeyFrame(Duration.seconds(3), scaleXValue, scaleYValue, translateXValue, translateYValue);
+        KeyFrame keyFrame = new KeyFrame(Duration.seconds(1), scaleXValue, scaleYValue); // 1.5 seconds duration
 
         // Add the keyframe to the timeline
-        zoomOutTimeline.getKeyFrames().add(keyFrame);
+        zoomInTimeline.getKeyFrames().add(keyFrame);
 
-        zoomOutTimeline.play();
+        zoomInTimeline.play();
     }
 
-
-    public void hidePlayBtn() {
-        unzoomBtn.setDisable(true);
-        unzoomBtn.setVisible(false);
-    }
-
-    @FXML
-    private Button unzoomBtn;
-    public void playOutZoom(ActionEvent event) throws IOException {
+    public void menuToGame(ActionEvent event) throws IOException {
         if (main != null) {
-            menuOutZoom();
-        }
-        hidePlayBtn();
-    }
+            menuToSceneTransition();
 
-    public void menuToGame(javafx.event.ActionEvent event) throws IOException {
-        if (main != null) {
-            main.showGameScene();
-        }else {
-            System.err.println("main is: "+main);
+            zoomInTimeline.setOnFinished(ev -> {
+                try {
+                    main.showGameScene();
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+            });
+        } else {
+            System.err.println("main is: " + main);
         }
     }
+
     public void menuToOptions(javafx.event.ActionEvent event) throws IOException {
         if (main != null) {
             main.showOptionsScene();
         }else {
             System.err.println("main is: "+main);
+        }
+    }
+    public void menuToLeaderboard(ActionEvent event) throws IOException {
+        if (main != null) {
+            main.showLeaderboardScene();
         }
     }
 

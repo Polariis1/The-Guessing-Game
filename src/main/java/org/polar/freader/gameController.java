@@ -34,6 +34,7 @@ public class gameController {
     private Main main;
     private logic logic;
     private startController start;
+    private Leaderboard leaderboard;
 
     public void setMain(Main main) {
         this.main = main;
@@ -44,11 +45,13 @@ public class gameController {
     public void setStartController(startController start){
         this.start = start;
     }
+    public void setLeaderboard(Leaderboard leaderboard) {
+        this.leaderboard = leaderboard;
+    }
 
     public void gameToMenu(javafx.event.ActionEvent event) throws IOException {
         if(main != null) {
             main.showStartScene();
-            start.hidePlayBtn();
 
             //(zoom)menu -> game -> (zoom(dont want))menu
             //find out a way to set these to 0 so no zoom 
@@ -81,9 +84,12 @@ public class gameController {
     @FXML
     public void initialize() {
 
-        comboValues();//SOLVED IT!! IT SAYS NULL BECAUSE INITIALIZE() STARTS WITH THE START SCENE
+        //SOLVED IT!! IT SAYS NULL BECAUSE INITIALIZE() STARTS WITH THE START SCENE
         // NOT THE GAME SCENE! make new controller for specific scene
-
+        if (difficultyComboBox != null) {
+            String[] difficulty = {"Easy", "Medium", "Hard"};
+            difficultyComboBox.setItems(FXCollections.observableArrayList(difficulty));
+        }
         //generate directory for save files
         String userHome = System.getProperty("user.home");
         directoryPath = Paths.get(userHome, "AppData", "Roaming", ".highscore", "saves");
@@ -157,14 +163,9 @@ public class gameController {
 
     @FXML
     public void comboValues() {
-        if (difficultyComboBox != null) {
-            String[] difficulty = {"Easy", "Medium", "Hard"};
-            difficultyComboBox.setItems(FXCollections.observableArrayList(difficulty));
             String value = difficultyComboBox.getValue();
             System.out.println("value: " + value);
-        }else{
-            System.out.println("No difficulty selected");
-        }
+
         if(logic != null){
             logic.numberGeneration(difficultyComboBox.getValue());
         }else{
@@ -172,9 +173,15 @@ public class gameController {
         }
     }
 
+
     public void guess(ActionEvent event) throws NoSuchMethodException {
         logic.numberGuessing(spinner.getValue());
+    }
+    @FXML
+    private Label statusLabel;
 
+    public void StatusLabel(String lowerOrHigher) {
+        statusLabel.setText(lowerOrHigher);
     }
 
     private Path filePath;
@@ -204,7 +211,7 @@ public class gameController {
     }
 
     public void writeData() throws IOException {
-        String data = "hello world darkness smile friend naurr what no way is that true"+"\n";
+        String data = saveFile+" "+String.valueOf(logic.guessAmount)+'\n';
         if (filePath != null) {  // Ensure filePath is initialized
             Files.write(filePath, data.getBytes(), StandardOpenOption.APPEND);
             System.out.println("Data written to file: " + filePath);

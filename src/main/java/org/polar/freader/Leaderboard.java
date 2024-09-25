@@ -2,18 +2,24 @@ package org.polar.freader;
 
 import java.io.IOException;
 
-public class options {
+public class Leaderboard {
+
     private Main main;
     private startController start;
+    private gameController gameController;
 
     public void setMain(Main main) {
         this.main = main;
     }
-    public void setStartController(startController start){
+    public void setStartController(startController start) {
         this.start = start;
     }
+    public void setController(gameController gamecontroller) {
+        this.gameController = gamecontroller;
+    }
 
-    public void optionsToMenu(javafx.event.ActionEvent event) throws IOException {
+
+    public void leaderboardToMenu(javafx.event.ActionEvent event) throws IOException {
         if (main != null) {
             main.showStartScene();
         }else {

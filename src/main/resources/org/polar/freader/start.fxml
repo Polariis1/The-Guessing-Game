@@ -29,7 +29,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button id="button" mnemonicParsing="false" prefHeight="67.0" prefWidth="234.0" styleClass="startMenuButton" stylesheets="@styles.css" text="HIGHSCORES" GridPane.rowIndex="2">
+            <Button id="button" mnemonicParsing="false" onAction="#menuToLeaderboard" prefHeight="67.0" prefWidth="234.0" styleClass="startMenuButton" stylesheets="@styles.css" text="LEADERBOARD" GridPane.rowIndex="2">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -97,16 +97,5 @@
             </Button>
          </children>
       </GridPane>
-      <Button id="button" fx:id="unzoomBtn" layoutX="609.0" layoutY="296.0" mnemonicParsing="false" onAction="#playOutZoom" prefHeight="26.0" prefWidth="63.0" styleClass="unzoomButton" stylesheets="@styles.css" text="PLAY">
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-         <font>
-            <Font size="6.0" />
-         </font>
-      </Button>
    </children>
 </AnchorPane>

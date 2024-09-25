@@ -22,7 +22,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" onAction="#menuToGame" prefHeight="75.0" prefWidth="200.0" styleClass="menuButton" text="MENU" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Button mnemonicParsing="false" onAction="#optionsToMenu" prefHeight="75.0" prefWidth="200.0" styleClass="menuButton" text="MENU" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
    </children>

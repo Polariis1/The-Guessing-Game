@@ -1,11 +1,12 @@
 package org.polar.freader;
 
+import javafx.animation.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.polar.freader.startController;
+import javafx.util.Duration;
 
 import java.io.IOException;
 
@@ -26,7 +27,7 @@ public class Main extends Application {
         showStartScene();
     }
 
-    private boolean isGameSceneLoaded = false;
+    private boolean isOtherSceneLoaded = false;
 
     public void showStartScene() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/polar/freader/start.fxml"));
@@ -35,16 +36,6 @@ public class Main extends Application {
         startController = loader.getController();
         startController.setMain(this); //pass main reference to controller
         startController.setRoot(root); //set the root node in the controller
-
-        //to make sure when going from game -> menu that it's not zoomed in.
-        if(!isGameSceneLoaded) { //if game scene hasn't loaded then be zoomed in.
-            root.setTranslateX(startOffSetX);
-            root.setTranslateY(startOffSetY);
-            root.setScaleX(startZoomScale);
-            root.setScaleY(startZoomScale);
-        }else{//if game scene is loaded then remove "Play" animation button.
-            startController.hidePlayBtn();
-        }
 
         Scene scene = new Scene(root, 1280, 720);
         primaryStage.setScene(scene);
@@ -60,13 +51,14 @@ public class Main extends Application {
         gameController.setMain(this);  // Pass Main instance to the gameController
         gameController.setLogic(logic);  // Pass logic instance to the gameController
         gameController.setStartController(startController);
-
+        logic.setController(gameController);
 
         Scene scene = new Scene(root, 1280, 720);
-        primaryStage.setScene(scene);
+        primaryStage.setScene(scene); // Now set the scene after zoom completes
         primaryStage.setResizable(false);
-        primaryStage.show();
-        isGameSceneLoaded = true;
+        primaryStage.show(); // Show the stage
+        isOtherSceneLoaded = true; // Indicate that the scene has loaded
+
     }
 
     public void showOptionsScene() throws IOException {
@@ -81,6 +73,22 @@ public class Main extends Application {
         primaryStage.setScene(scene); // Use the primary stage
         primaryStage.setResizable(false);
         primaryStage.show();
+        isOtherSceneLoaded = true;
+    }
+
+    public void showLeaderboardScene() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/polar/freader/leaderboard.fxml"));
+        Parent root = loader.load();
+
+        Leaderboard leaderboard = loader.getController();
+        leaderboard.setMain(this);
+        leaderboard.setStartController(startController);
+
+        Scene scene = new Scene(root, 1280, 720);
+        primaryStage.setScene(scene); // Use the primary stage
+        primaryStage.setResizable(false);
+        primaryStage.show();
+        isOtherSceneLoaded = true;
     }
 
     public static void main(String[] args) {

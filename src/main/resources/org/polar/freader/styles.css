@@ -23,6 +23,7 @@
 .menuButton{
     -fx-background-color: #C42847;
     -fx-background-radius: 5;
+    -fx-font-family: 'Press Start 2P';
     -fx-text-fill: #FBF5F3;
     -fx-padding: 10 20;
     -fx-font-size: 1.5em;
