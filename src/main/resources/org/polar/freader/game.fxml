@@ -5,11 +5,13 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.SpinnerValueFactory?>
 <AnchorPane id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="backgroundImage" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.polar.freader.gameController">
    <children>
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -22,7 +24,11 @@
                </cursor>
             </Button>
             <Button layoutX="228.0" layoutY="443.0" mnemonicParsing="false" onAction="#writeData" prefHeight="40.0" prefWidth="98.0" text="Guess" />
-            <Spinner layoutX="201.0" layoutY="410.0" prefHeight="26.0" prefWidth="152.0" />
+            <Spinner fx:id="spinner" editable="true" layoutX="201.0" layoutY="410.0" prefHeight="26.0" prefWidth="152.0">
+               <valueFactory>
+               <SpinnerValueFactory.IntegerSpinnerValueFactory amountToStepBy="1" initialValue="1" max="2147483647" min="0" />
+               </valueFactory>
+            </Spinner>
             <Button layoutX="814.0" layoutY="657.0" mnemonicParsing="false" onAction="#readData" prefHeight="40.0" prefWidth="98.0" text="Read" />
             <TextArea fx:id="printData" layoutX="806.0" layoutY="14.0" opacity="0.89" prefHeight="634.0" prefWidth="450.0" />
          </children>
@@ -30,14 +36,14 @@
       <Pane fx:id="selectOldSaveBackground" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: black;">
          <children>
             <Button layoutX="1066.0" layoutY="631.0" mnemonicParsing="false" onAction="#goBackToSelection" prefHeight="75.0" prefWidth="200.0" styleClass="menuButton" text="CANCEL" />
-            <ScrollPane layoutX="341.0" layoutY="10.0" vbarPolicy="AS_NEEDED" hbarPolicy="NEVER" prefHeight="700.0" prefWidth="600.0" styleClass="savesList">
+            <ScrollPane hbarPolicy="NEVER" layoutX="341.0" layoutY="10.0" prefHeight="700.0" prefWidth="600.0" styleClass="savesList" vbarPolicy="AS_NEEDED">
                <content>
                   <VBox fx:id="savesVBox" alignment="TOP_CENTER" prefWidth="585.0" styleClass="savesList" />
                </content>
             </ScrollPane>
          </children>
       </Pane>
-      <Pane fx:id="selectionBackground" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: BLACK;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane fx:id="selectionBackground" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="selectionBackgroundImg" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Button layoutX="647.0" layoutY="337.0" mnemonicParsing="false" onAction="#LoadOldGame" prefHeight="75.0" prefWidth="200.0" styleClass="menuButton" text="CONTINUE" textFill="WHITE" />
             <Button layoutX="433.0" layoutY="337.0" mnemonicParsing="false" onAction="#LoadNewGame" prefHeight="75.0" prefWidth="200.0" styleClass="menuButton" text="NEW GAME" textFill="WHITE" />

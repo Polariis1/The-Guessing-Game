@@ -15,6 +15,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.scene.control.Spinner;
+import org.polar.freader.startController;
 
 import java.io.*;
 import java.nio.file.*;
@@ -25,28 +27,38 @@ import java.util.List;
 import java.util.Objects;
 
 public class gameController {
+    public Spinner<Integer> spinner;
     private Stage stage;
     private Scene scene;
     private Parent root;
     private Main main;
     private logic logic;
+    private startController start;
 
     public void setMain(Main main) {
         this.main = main;
     }
-
     public void setLogic(logic logic) {
         this.logic = logic;
     }
+    public void setStartController(startController start){
+        this.start = start;
+    }
 
     public void gameToMenu(javafx.event.ActionEvent event) throws IOException {
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("start.fxml")));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
+        if(main != null) {
+            main.showStartScene();
+            start.hidePlayBtn();
 
+            //(zoom)menu -> game -> (zoom(dont want))menu
+            //find out a way to set these to 0 so no zoom 
+            //        root.setTranslateX(0);
+            //        root.setTranslateY(0);
+            //        root.setScaleX(0);
+            //        root.setScaleY(0);
+        }else {
+            System.err.println("Error main is null");
+        }
         cleanFiles(); //deletes empty save file
 
         System.out.println("Exit to Menu");
@@ -69,7 +81,7 @@ public class gameController {
     @FXML
     public void initialize() {
 
-        fillComboBox();//SOLVED IT!! IT SAYS NULL BECAUSE INITIALIZE() STARTS WITH THE START SCENE
+        comboValues();//SOLVED IT!! IT SAYS NULL BECAUSE INITIALIZE() STARTS WITH THE START SCENE
         // NOT THE GAME SCENE! make new controller for specific scene
 
         //generate directory for save files
@@ -81,13 +93,6 @@ public class gameController {
         }else{
             System.out.println("\n"+"Directory already exists at: "+ directoryPath);
         }
-    }
-    @FXML
-    public ComboBox<String> difficultyComboBox;
-
-    public void fillComboBox(){
-        String[] difficulty = {"Easy", "Medium", "Hard"};
-        difficultyComboBox.setItems(FXCollections.observableArrayList(difficulty));
     }
 
     @FXML
@@ -148,26 +153,28 @@ public class gameController {
     }
 
     @FXML
+    public ComboBox<String> difficultyComboBox;
+
+    @FXML
     public void comboValues() {
         if (difficultyComboBox != null) {
+            String[] difficulty = {"Easy", "Medium", "Hard"};
+            difficultyComboBox.setItems(FXCollections.observableArrayList(difficulty));
             String value = difficultyComboBox.getValue();
             System.out.println("value: " + value);
-
-            if (logic != null) {
-                logic.numberGeneration(value);
-            }else {
-                System.err.println("Logic is null");
-            }
         }else{
             System.out.println("No difficulty selected");
         }
-    }
-    public void guess(ActionEvent event) throws NoSuchMethodException {
         if(logic != null){
-            comboValues();
+            logic.numberGeneration(difficultyComboBox.getValue());
         }else{
             System.err.println("logic is null");
         }
+    }
+
+    public void guess(ActionEvent event) throws NoSuchMethodException {
+        logic.numberGuessing(spinner.getValue());
+
     }
 
     private Path filePath;

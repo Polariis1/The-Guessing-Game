@@ -1,73 +1,80 @@
+package org.polar.freader;
 
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-add some fun context to guesses like, "how many years do a shark usually live"
-so it becomes a bit more about knowledge and skill based. or just on or off, maybe a "tip".
+import java.io.IOException;
 
-continue -> load different save files
-new game -> make a new save file
+public class Main extends Application {
+    private logic logic = new logic(); // Initialize logic here
+    private startController startController; // Declare startController
 
-Game Ideas:
-Number Guessing with Higher/lower, word guessing(hangman),
-country flags, guess the blurry image!(add jeppe?), geoguessr(image/s),
-guess the age, short summary on latitude & longitude then guess city or country,
-guess the element (Provide atomic numbers or clues (like "used in batteries")),
-guess the world record(e.g., "How many hot dogs were eaten in the world record contest?").
+    private Stage primaryStage;
 
-challanges to earn points
-shop to spend points
-buy new gamemodes with points
+    @Override
+    public void start(Stage primaryStage) throws IOException {
+        this.primaryStage = primaryStage; // Store the primary stage reference
+        showStartScene(); // Start with the start scene
+    }
 
+    public void showStartScene() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/polar/freader/start.fxml"));
+        Parent root = loader.load();
 
+        // Get the controller for the start scene
+        startController = loader.getController();
+        startController.setMain(this); // Pass the Main reference to the controller
+        startController.setRoot(root); // Set the root node in the controller
 
-        // import controller
-        startController = loader.getController(); //initialize controller
-        startController.setMain(this); //set main application reference
+        // Adjust initial UI properties (e.g., position and scale)
+        root.setTranslateX(-10);
+        root.setTranslateY(100);
+        root.setScaleX(2);
+        root.setScaleY(2);
 
-        root.setTranslateX(startOffSetX);
-        root.setTranslateY(startOffSetY);
-        root.setScaleX(startZoomScale); //start with 000% zoom
-        root.setScaleY(startZoomScale);
-
+        // Set the scene and show the stage
         Scene scene = new Scene(root, 1280, 720);
-        stage.setTitle("Highscore!");
-        stage.setScene(scene);
-        stage.setResizable(false);
-
-        stage.show();
-    }
-}
-    public void menuOutZoom(ActionEvent actionEvent) {
-        // Reset initial translation and scale
-        root.setTranslateX(startOffSetX);
-        root.setTranslateY(startOffSetY);
-
-        root.setScaleX(startZoomScale);
-        root.setScaleY(startZoomScale);
-
-        // Create a timeline to animate the zoom out effect
-        Timeline zoomOutTimeline = new Timeline();
-
-        // Define the keyframes for scaling
-        KeyValue scaleXValue = new KeyValue(root.scaleXProperty(), 1.0);
-        KeyValue scaleYValue = new KeyValue(root.scaleYProperty(), 1.0);
-
-        // Define translations to bring it to the center
-        KeyValue translateXValue = new KeyValue(root.translateXProperty(), 0);
-        KeyValue translateYValue = new KeyValue(root.translateYProperty(), 0);
-
-        // Create a keyframe with the desired duration
-        KeyFrame keyFrame = new KeyFrame(Duration.seconds(3), scaleXValue, scaleYValue, translateXValue, translateYValue);
-
-        // Add the keyframe to the timeline
-        zoomOutTimeline.getKeyFrames().add(keyFrame);
-
-        zoomOutTimeline.play();
-    }
-    public startController getController() {
-        return startController; //provide access to the controller
+        primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
+        primaryStage.show();
     }
 
+    public void showGameScene() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/polar/freader/game.fxml"));
+        Parent root = loader.load();
+
+        // Get the controller for the game scene
+        gameController gameController = loader.getController();
+        gameController.setMain(this);  // Pass Main instance to the gameController
+        gameController.setLogic(logic);  // Pass logic instance to the gameController
+        gameController.setStartController(startController);  // Pass the startController instance to the gameController
+
+        // Set the scene and show the stage
+        Scene scene = new Scene(root, 1280, 720);
+        primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
+        primaryStage.show();
+    }
+
+    public void showOptionsScene() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/polar/freader/options.fxml"));
+        Parent root = loader.load();
+
+        // Get the controller for the options scene
+        startController startController = loader.getController();
+        startController.setMain(this); // Pass the Main reference to the controller
+
+        // Set the scene and show the stage
+        Scene scene = new Scene(root, 1280, 720);
+        primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
+        primaryStage.show();
+    }
 
     public static void main(String[] args) {
-        launch();
+        launch(args);
     }
+}

@@ -106,11 +106,15 @@ public class startController {
     public void menuToGame(javafx.event.ActionEvent event) throws IOException {
         if (main != null) {
             main.showGameScene();
+        }else {
+            System.err.println("main is: "+main);
         }
     }
     public void menuToOptions(javafx.event.ActionEvent event) throws IOException {
         if (main != null) {
             main.showOptionsScene();
+        }else {
+            System.err.println("main is: "+main);
         }
     }
 
