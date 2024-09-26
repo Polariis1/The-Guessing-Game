@@ -1,3 +1,9 @@
 1 line = 1 guess data
 each space( ) indicates a new thing to store for example time or tries
 e.g (Username AmountOfTries Time
+dont move stuff in files but instead use different methods to stort
+them out in a leaderboard. sort by:
+amount of guesses. most or least.
+time spent. most or least.
+?most used save files?
+option to delete .highscore directory

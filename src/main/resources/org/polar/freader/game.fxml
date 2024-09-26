@@ -16,23 +16,6 @@
 
 <AnchorPane id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="backgroundImage" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.polar.freader.gameController">
    <children>
-      <Pane fx:id="selectOldSaveBackground" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: black;">
-         <children>
-            <Button layoutX="1066.0" layoutY="631.0" mnemonicParsing="false" onAction="#goBackToSelection" prefHeight="75.0" prefWidth="200.0" styleClass="menuButton" text="CANCEL" />
-            <ScrollPane hbarPolicy="NEVER" layoutX="341.0" layoutY="10.0" prefHeight="700.0" prefWidth="600.0" styleClass="savesList" vbarPolicy="AS_NEEDED">
-               <content>
-                  <VBox fx:id="savesVBox" alignment="TOP_CENTER" prefWidth="585.0" styleClass="savesList" />
-               </content>
-            </ScrollPane>
-         </children>
-      </Pane>
-      <Pane fx:id="selectionBackground" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="selectionBackgroundImg" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Button layoutX="647.0" layoutY="337.0" mnemonicParsing="false" onAction="#LoadOldGame" prefHeight="75.0" prefWidth="200.0" styleClass="menuButton" text="CONTINUE" textFill="WHITE" />
-            <Button layoutX="433.0" layoutY="337.0" mnemonicParsing="false" onAction="#LoadNewGame" prefHeight="75.0" prefWidth="200.0" styleClass="menuButton" text="NEW GAME" textFill="WHITE" />
-            <Button layoutX="540.0" layoutY="425.0" mnemonicParsing="false" onAction="#gameToMenu" prefHeight="75.0" prefWidth="200.0" styleClass="menuButton" text="MENU" textFill="WHITE" />
-         </children>
-      </Pane>
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="btnImage8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Button layoutX="368.0" layoutY="400.0" mnemonicParsing="false" onAction="#guess" prefHeight="61.0" prefWidth="129.0" text="Difficulty" />
@@ -48,7 +31,7 @@
                <SpinnerValueFactory.IntegerSpinnerValueFactory amountToStepBy="1" initialValue="0" max="2147483647" min="0" />
                </valueFactory>
             </Spinner>
-            <Button layoutX="814.0" layoutY="657.0" mnemonicParsing="false" onAction="#readData" prefHeight="40.0" prefWidth="98.0" text="Read" />
+            <Button layoutX="814.0" layoutY="657.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="98.0" text="Read" />
             <TextArea fx:id="printData" layoutX="806.0" layoutY="292.0" opacity="0.89" prefHeight="356.0" prefWidth="450.0" />
             <ProgressBar layoutX="11.0" layoutY="9.0" prefHeight="20.0" prefWidth="1259.0" progress="0.0" />
             <Label fx:id="statusLabel" layoutX="299.0" layoutY="315.0" text="Label">
@@ -56,6 +39,23 @@
                   <Font size="52.0" />
                </font>
             </Label>
+         </children>
+      </Pane>
+      <Pane fx:id="selectOldSaveBackground" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: black;">
+         <children>
+            <Button layoutX="1066.0" layoutY="631.0" mnemonicParsing="false" onAction="#goBackToSelection" prefHeight="75.0" prefWidth="200.0" styleClass="menuButton" text="CANCEL" />
+            <ScrollPane hbarPolicy="NEVER" layoutX="341.0" layoutY="10.0" prefHeight="700.0" prefWidth="600.0" styleClass="savesList" vbarPolicy="AS_NEEDED">
+               <content>
+                  <VBox fx:id="savesVBox" alignment="TOP_CENTER" prefWidth="585.0" styleClass="savesList" />
+               </content>
+            </ScrollPane>
+         </children>
+      </Pane>
+      <Pane fx:id="selectionBackground" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="selectionBackgroundImg" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Button layoutX="647.0" layoutY="337.0" mnemonicParsing="false" onAction="#LoadOldGame" prefHeight="75.0" prefWidth="200.0" styleClass="menuButton" text="CONTINUE" textFill="WHITE" />
+            <Button layoutX="433.0" layoutY="337.0" mnemonicParsing="false" onAction="#LoadNewGame" prefHeight="75.0" prefWidth="200.0" styleClass="menuButton" text="NEW GAME" textFill="WHITE" />
+            <Button layoutX="540.0" layoutY="425.0" mnemonicParsing="false" onAction="#gameToMenu" prefHeight="75.0" prefWidth="200.0" styleClass="menuButton" text="MENU" textFill="WHITE" />
          </children>
       </Pane>
    </children>

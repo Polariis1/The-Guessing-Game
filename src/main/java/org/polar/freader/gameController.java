@@ -174,7 +174,7 @@ public class gameController {
     }
 
 
-    public void guess(ActionEvent event) throws NoSuchMethodException {
+    public void guess(ActionEvent event) throws NoSuchMethodException, IOException {
         logic.numberGuessing(spinner.getValue());
     }
     @FXML
@@ -211,8 +211,8 @@ public class gameController {
     }
 
     public void writeData() throws IOException {
-        String data = saveFile+" "+String.valueOf(logic.guessAmount)+'\n';
-        if (filePath != null) {  // Ensure filePath is initialized
+        String data = saveFile +" "+ difficultyComboBox.getValue() +" "+ String.valueOf(logic.guessAmount)+'\n';
+        if (filePath != null) {  //ensure filePath is initialized
             Files.write(filePath, data.getBytes(), StandardOpenOption.APPEND);
             System.out.println("Data written to file: " + filePath);
             printData.appendText(data + "\n");
@@ -223,17 +223,5 @@ public class gameController {
     @FXML
     private TextArea printData;
 
-    public String readData() throws IOException {
-        try (BufferedReader reader = new BufferedReader(new FileReader(String.valueOf(filePath)))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line);
-
-            }
-        } catch (IOException e) { //free up resources by closing the stream
-            e.printStackTrace();
-        }
-        return null;
-    }
 
 }

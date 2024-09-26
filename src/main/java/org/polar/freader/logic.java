@@ -1,5 +1,7 @@
 package org.polar.freader;
 
+import java.io.IOException;
+
 public class logic {
 
     private gameController controller;
@@ -30,15 +32,20 @@ public class logic {
         }
     }
     public int guessAmount;
+    public int correctGuesses = 0;
 
-    public void numberGuessing(Integer num) {
+    public void numberGuessing(Integer num) throws IOException {
         System.out.println(num);
         if (num == guessingNum) {
             System.out.println("Guess Correct");
             controller.comboValues();
             controller.StatusLabel("Guess Correct!");
             System.out.println("Amount of guesses "+ guessAmount);
+
+            controller.writeData();
             guessAmount = 1;
+            correctGuesses++;
+
         }else if (num >= guessingNum) {
             System.out.println("Lower");
             controller.StatusLabel("Lower");
