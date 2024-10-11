@@ -1,13 +1,20 @@
 package org.polar.freader;
 
+import javafx.beans.property.SimpleLongProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.TreeTableView;
+import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -37,11 +44,18 @@ public class Leaderboard {
     }
     @FXML
     private TextArea readAndPrint;
-    private Path directoryPath;
+
+    private String userHome = System.getProperty("user.home");
+    private Path directoryPath = Paths.get(userHome, "AppData", "Roaming", ".highscore", "saves");
+
+    private int num = 0;
+    @FXML
+    private TreeTableView<File> treeTableView = new TreeTableView<>();
+
+    //put all the first words in a list then increase number[0] to go through them
+    //then do the same with the other words.
 
     public void readData() throws IOException {
-        String userHome = System.getProperty("user.home");
-        directoryPath = Paths.get(userHome, "AppData", "Roaming", ".highscore", "saves");
 
         File[] saveFileList = directoryPath.toFile().listFiles();
         if (saveFileList != null) {
@@ -53,10 +67,13 @@ public class Leaderboard {
                     readAndPrint.appendText("NEW SAVE:"+"\n");
 
                     while ((line = reader.readLine()) != null) {
-
-
+                        
                         sortData(line);
 
+                        String[] lineArr = line.split(" ", 3);
+
+                        String test = Arrays.toString(lineArr[2].getBytes());
+                        System.err.println(test); // LOOK I AM OVER HERE
 
                         readAndPrint.appendText("\n");
                     }
@@ -66,22 +83,66 @@ public class Leaderboard {
             }
         }
     }
-    public String sortData() throws IOException {
+
+    public String sortData(String line) throws IOException {
         //call read data to get some data.
         String[] lineArr = line.split(" ", 3);
 
         String test = Arrays.toString(lineArr[2].getBytes());
         System.out.println(test);
 
-        num +=3;
         for (String a : lineArr) {
             readAndPrint.appendText(a+'\n');
         }readAndPrint.appendText("\n");
         return null;
     }
 
-    public void triggerReadData(ActionEvent event) throws IOException {
-        readData();
-    }
+    private Path filePath;
+    private String saveFile;
 
+    public void triggerReadData(ActionEvent event) throws IOException {
+        // Create root item for the file tree (starting from the root directory "/")
+        TreeItem<File> root = new TreeItem<>(new File("/"));
+
+        // Populate the tree with file structure
+
+        // Create columns
+        TreeTableColumn<File, String> saveNameCol = new TreeTableColumn<>("Saves:");
+        TreeTableColumn<File, Number> saveGuessesCol = new TreeTableColumn<>("Guesses:");
+
+        int fileNum = 1;
+        do { //runs once, before condition is checked at the end.
+            saveFile = "save" + fileNum;
+            filePath = Path.of(directoryPath + "/" + saveFile + ".txt");
+            System.out.println(filePath+ "saveFile: "+saveFile);
+
+            fileNum++;
+        } while (Files.exists(filePath)); //does the file exist? it does? run again!
+
+
+        saveNameCol.setCellValueFactory(param -> {
+            TreeItem<File> save = param.getValue();
+            return new SimpleStringProperty(save.getValue().getName());
+        });
+
+        // Set CellValueFactory for the file size column (use length() to get file size)
+        saveGuessesCol.setCellValueFactory(param -> {
+            TreeItem<File> save = param.getValue();
+            return new SimpleStringProperty(save.getValue().getName()).length();
+        }); //read file guess
+
+            File[] saveFileList = directoryPath.toFile().listFiles();
+            assert saveFileList != null;
+            for (File saves : saveFileList) {
+                System.out.println(saves.toString());
+                TreeItem<File> saveRoot = new TreeItem<>(saves);
+                root.getChildren().add(saveRoot);
+            }
+
+        // Add columns to the TreeTableView
+        treeTableView.getColumns().setAll(saveNameCol, saveGuessesCol);
+
+        treeTableView.setRoot(root);
+        treeTableView.setShowRoot(true);
+    }
 }

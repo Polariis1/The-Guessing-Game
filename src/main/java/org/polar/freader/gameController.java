@@ -173,7 +173,6 @@ public class gameController {
         }
     }
 
-
     public void guess(ActionEvent event) throws NoSuchMethodException, IOException {
         logic.numberGuessing(spinner.getValue());
     }
