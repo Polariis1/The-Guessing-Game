@@ -4,10 +4,7 @@ import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableColumn;
-import javafx.scene.control.TreeTableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 
 import java.io.BufferedReader;
@@ -50,7 +47,7 @@ public class Leaderboard {
 
     private int num = 0;
     @FXML
-    private TreeTableView<File> treeTableView = new TreeTableView<>();
+    private TableView<File> treeTableView = new TableView<>();
 
     //put all the first words in a list then increase number[0] to go through them
     //then do the same with the other words.
@@ -107,8 +104,8 @@ public class Leaderboard {
         // Populate the tree with file structure
 
         // Create columns
-        TreeTableColumn<File, String> saveNameCol = new TreeTableColumn<>("Saves:");
-        TreeTableColumn<File, Number> saveGuessesCol = new TreeTableColumn<>("Guesses:");
+        TableColumn<File, String> saveNameCol = new TableColumn<>("Saves:");
+        TableColumn<File, Number> saveGuessesCol = new TableColumn<>("Guesses:");
 
         int fileNum = 1;
         do { //runs once, before condition is checked at the end.
@@ -121,14 +118,14 @@ public class Leaderboard {
 
 
         saveNameCol.setCellValueFactory(param -> {
-            TreeItem<File> save = param.getValue();
-            return new SimpleStringProperty(save.getValue().getName());
+            File save = param.getValue();
+            return new SimpleStringProperty(save.getName());
         });
 
-        // Set CellValueFactory for the file size column (use length() to get file size)
+        //
         saveGuessesCol.setCellValueFactory(param -> {
-            TreeItem<File> save = param.getValue();
-            return new SimpleStringProperty(save.getValue().getName()).length();
+            File save = param.getValue();
+            return new SimpleStringProperty(save.getName()).length(); //change to scan inside file
         }); //read file guess
 
             File[] saveFileList = directoryPath.toFile().listFiles();
@@ -142,7 +139,5 @@ public class Leaderboard {
         // Add columns to the TreeTableView
         treeTableView.getColumns().setAll(saveNameCol, saveGuessesCol);
 
-        treeTableView.setRoot(root);
-        treeTableView.setShowRoot(true);
     }
 }
