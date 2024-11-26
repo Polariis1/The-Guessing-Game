@@ -31,12 +31,13 @@ public class logic {
             System.out.println("ddddifficulty = null");
         }
     }
-    public int guessAmount;
+    public int guessAmount = 1;
     public int correctGuesses = 0;
 
     public void numberGuessing(Integer num) throws IOException {
         System.out.println(num);
         if (num == guessingNum) {
+
             System.out.println("Guess Correct");
             controller.comboValues();
             controller.StatusLabel("Guess Correct!");

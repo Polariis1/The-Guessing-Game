@@ -2,9 +2,12 @@ package org.polar.freader;
 
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 
 import java.io.BufferedReader;
@@ -45,9 +48,6 @@ public class Leaderboard {
     private String userHome = System.getProperty("user.home");
     private Path directoryPath = Paths.get(userHome, "AppData", "Roaming", ".highscore", "saves");
 
-    private int num = 0;
-    @FXML
-    private TableView<File> treeTableView = new TableView<>();
 
     //put all the first words in a list then increase number[0] to go through them
     //then do the same with the other words.
@@ -97,47 +97,61 @@ public class Leaderboard {
     private Path filePath;
     private String saveFile;
 
+    @FXML
+    private TableView LeaderboardTableView = new TableView<>();
+
     public void triggerReadData(ActionEvent event) throws IOException {
-        // Create root item for the file tree (starting from the root directory "/")
-        TreeItem<File> root = new TreeItem<>(new File("/"));
 
-        // Populate the tree with file structure
+        TableColumn<saveData, String> filenameCol = new TableColumn<>("Filename");
+        filenameCol.setCellValueFactory(new PropertyValueFactory<>("filename"));
 
-        // Create columns
-        TableColumn<File, String> saveNameCol = new TableColumn<>("Saves:");
-        TableColumn<File, Number> saveGuessesCol = new TableColumn<>("Guesses:");
+        TableColumn<saveData, String> difficultyCol = new TableColumn<>("Difficulty");
+        difficultyCol.setCellValueFactory(new PropertyValueFactory<>("difficulty"));
 
-        int fileNum = 1;
-        do { //runs once, before condition is checked at the end.
-            saveFile = "save" + fileNum;
-            filePath = Path.of(directoryPath + "/" + saveFile + ".txt");
-            System.out.println(filePath+ "saveFile: "+saveFile);
+        TableColumn<saveData, String> guessAmountCol = new TableColumn<>("Guess Amount");
+        guessAmountCol.setCellValueFactory(new PropertyValueFactory<>("guessAmount"));
 
-            fileNum++;
-        } while (Files.exists(filePath)); //does the file exist? it does? run again!
+        TableColumn<saveData, String> usernameCol = new TableColumn<>("Username");
+        usernameCol.setCellValueFactory(new PropertyValueFactory<>("username"));
 
 
-        saveNameCol.setCellValueFactory(param -> {
-            File save = param.getValue();
-            return new SimpleStringProperty(save.getName());
-        });
+        LeaderboardTableView.getColumns().addAll(filenameCol, difficultyCol, guessAmountCol, usernameCol);
 
-        //
-        saveGuessesCol.setCellValueFactory(param -> {
-            File save = param.getValue();
-            return new SimpleStringProperty(save.getName()).length(); //change to scan inside file
-        }); //read file guess
 
-            File[] saveFileList = directoryPath.toFile().listFiles();
-            assert saveFileList != null;
-            for (File saves : saveFileList) {
-                System.out.println(saves.toString());
-                TreeItem<File> saveRoot = new TreeItem<>(saves);
-                root.getChildren().add(saveRoot);
+        ObservableList<saveData> data = FXCollections.observableArrayList();
+
+        File[] saveFileList = directoryPath.toFile().listFiles();
+        if (saveFileList != null) {
+            for (File saveFile : saveFileList) {
+                try (BufferedReader reader = new BufferedReader(new FileReader(String.valueOf(saveFile)))) {
+                    String line;
+                    int num = 3;
+
+
+                    while ((line = reader.readLine()) != null) {
+
+                        String[] lineArr = line.split(" ", 4);
+                        String filename = lineArr[0];
+                        String difficulty = lineArr[1];
+                        String guessAmount = lineArr[2];
+                        String username = lineArr[3];
+
+                        Arrays.toString(filename.getBytes());
+                        Arrays.toString(difficulty.getBytes());
+                        Arrays.toString(guessAmount.getBytes());
+                        Arrays.toString(username.getBytes());
+
+                        data.add(new saveData(filename, difficulty, guessAmount, username));
+
+                        String test = Arrays.toString(lineArr[2].getBytes());
+                        System.err.println(test); // LOOK I AM OVER HERE
+
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-
-        // Add columns to the TreeTableView
-        treeTableView.getColumns().setAll(saveNameCol, saveGuessesCol);
-
+        }
+        LeaderboardTableView.setItems(data);
     }
 }
